@@ -16,13 +16,6 @@ import {
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HomeStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="Chat" component={Chat} />
-  </Stack.Navigator>
-);
-
 const AppNavigation = () => {
   return (
     <NavigationContainer>
@@ -32,11 +25,8 @@ const AppNavigation = () => {
           component={Splash}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Main"
-          component={HomeStack}
-          options={{headerShown: false}}
-        />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Appointment" component={Appointment} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />
