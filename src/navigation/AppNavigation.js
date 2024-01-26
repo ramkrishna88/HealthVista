@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 import {
   Home,
   Splash,
@@ -54,13 +55,10 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName={isAuthenticated ? 'Authenticated' : 'Splash'}
         screenOptions={{headerShown: false}}>
         {isAuthenticated ? (
-          <Stack.Screen
-            name="Authenticated"
-            component={AuthenticatedTabNavigator}
-          />
+          <Stack.Screen name="Authenticated" component={AuthenticatedTab} />
         ) : (
           <>
             <Stack.Screen
@@ -119,7 +117,7 @@ const LogoutButton = ({navigation}) => {
             await auth().signOut();
 
             // Navigate to Splash screen after logout
-            navigation.replace('Splash');
+            navigation.navigate('Splash');
           },
         },
       ],
@@ -134,10 +132,11 @@ const LogoutButton = ({navigation}) => {
   );
 };
 
-const AuthenticatedTabNavigator = () => {
+const AuthenticatedTab = () => {
+  const navigation = useNavigation();
   return (
     <Tab.Navigator
-      screenOptions={({route, navigation}) => ({
+      screenOptions={({route}) => ({
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({color, size}) => {
           let iconName;
