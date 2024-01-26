@@ -6,7 +6,6 @@ import Profile from './profile';
 import Register from './register';
 import Splash from './splash';
 import Qualification from './qualification';
-import Experience from './experience';
 
 export {
   Appointment,
@@ -17,5 +16,4 @@ export {
   Register,
   Splash,
   Qualification,
-  Experience,
 };

@@ -16,8 +16,7 @@ const Login = ({navigation}) => {
       // Clear email and password fields
       setEmail('');
       setPassword('');
-      // If login is successful, navigate to the 'Home' screen
-      navigation.navigate('Home');
+      navigation.navigate('Authenticated');
     } catch (error) {
       console.error('Login error:', error.message);
       Alert.alert(
@@ -26,7 +25,6 @@ const Login = ({navigation}) => {
       );
     }
   };
-
 
   return (
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
