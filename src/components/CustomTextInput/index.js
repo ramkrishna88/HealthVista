@@ -61,7 +61,7 @@ const CustomTextInput = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    width: '80%',
+    width: '100%',
     alignSelf: 'center',
   },
   container: {

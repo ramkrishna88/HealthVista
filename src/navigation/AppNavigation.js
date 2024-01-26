@@ -11,6 +11,8 @@ import {
   Profile,
   Login,
   Register,
+  Experience,
+  Qualification,
 } from '../screens/index';
 
 const Stack = createNativeStackNavigator();
@@ -25,12 +27,23 @@ const AppNavigation = () => {
           component={Splash}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen
+          name="Experience"
+          component={Experience}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Qualification"
+          component={Qualification}
+          options={{headerShown: true}}
+        />
+
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Appointment" component={Appointment} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
