@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Alert, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -13,6 +14,14 @@ import {
   Profile,
   Appointment,
 } from '../screens/index';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faHome,
+  faComment,
+  faCalendar,
+  faUser,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -93,9 +102,61 @@ const AppNavigation = () => {
   );
 };
 
+const LogoutButton = ({navigation}) => {
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: async () => {
+            // Perform logout logic
+            await auth().signOut();
+
+            // Navigate to Splash screen after logout
+            navigation.replace('Splash');
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  return (
+    <TouchableOpacity onPress={handleLogout} style={{marginRight: 16}}>
+      <FontAwesomeIcon icon={faSignOutAlt} size={24} color="#e96060" />
+    </TouchableOpacity>
+  );
+};
+
 const AuthenticatedTabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({route, navigation}) => ({
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({color, size}) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = faHome;
+          } else if (route.name === 'Chat') {
+            iconName = faComment;
+          } else if (route.name === 'Appointment') {
+            iconName = faCalendar;
+          } else if (route.name === 'Profile') {
+            iconName = faUser;
+          }
+
+          return <FontAwesomeIcon icon={iconName} size={size} color={color} />;
+        },
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => <LogoutButton navigation={navigation} />,
+      })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Chat" component={Chat} />
       <Tab.Screen name="Appointment" component={Appointment} />
